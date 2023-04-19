@@ -1,0 +1,92 @@
+
+<section  class="w-100" >
+    <div *ngIf="newhotel" class="container-new-hotel p-5 m-auto col-lg-10 col-md-10 col-sm-12 col-12"> 
+        <div style="height: 20px" >
+        <button style="float:right" class="btn btn-danger" (click)="toggleNewHotel()">X</button>
+        </div>
+        <form [formGroup] ="newHotelForm" (ngSubmit)="onSubmit()" enctype="mulitpart/form-data">
+            <h4>Add New Hotel</h4>
+            <select class="form-select" formControlName="country">
+                <option [selected]="true">Country</option>
+                <option value="India">India</option>
+              </select>
+              <select class="form-select" formControlName="city">
+                <option [selected]="true">City</option>
+                <option value="Delhi">Delhi</option>
+              </select>
+                 
+            <div class="form-group">
+                <label for="exampleInputEmail1">Hotel Name</label>
+                <input type="email" class="form-control" formControlName="hotelName" placeholder="Name *">
+                <small id="emailHelp" class="form-text text-muted"> Write Name here</small>
+              </div>
+              <select class="form-select"  formControlName="starCategory">
+                <option [selected]="true" value="0">Star Category</option>
+                <option value="1">One Star</option>
+                <option value="2">One Star</option>
+                <option value="3">One Star</option>
+                <option value="4">One Star</option>
+                <option value="5">One Star</option>
+              </select>
+                 
+              
+              <div class="form-group">
+                <label for="">Ac Single</label>
+                <input #acSingle type="number" formControlname="acSingle" class="form-control" min="0" value="0" (keyup)="updateTotalRooms()"  />
+              </div>
+              <div class="form-group">
+                <label for="">Ac Double</label>
+                <input #acDouble type="number" formControlName="acDouble" class="form-control" min="0" (keyup)="updateTotalRooms()"  />
+              </div>
+              <div class="form-group">
+                <label for="">Non-Ac Single</label>
+                <input #nonacSingle type="number" formControlName="nonacSingle" class="form-control" min="0" (keyup)="updateTotalRooms()"  />
+              </div>
+              <div class="form-group">
+                <label for="">Non-Ac Double</label>
+                <input #nonacDouble type="number" formControlName="nonacDouble" class="form-control" min="0" (keyup)="updateTotalRooms()"  />
+              </div>
+              <div class="form-group">
+                <label for="">Total Room</label>
+                <input #totalRoom type="number" formControlName="total" class="form-control" min="0" value="" readonly  />
+              </div>
+
+
+              <div class="form-group">
+                <label for="exampleInputEmail1">Images</label>
+                <input #image type="file" class="form-control" accept="image/*"  (change)="addFile($event)">
+                <ul>
+                    <li *ngFor="let file of filesArr">{{file.name}}</li>
+                </ul>
+              </div>
+              
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </form>
+    </div>
+</section>
+
+<button class="btn-add-new mb-2" *ngIf="!newhotel" (click)="toggleNewHotel()">Add New Hotel</button>
+<section class="row  justify-content-center align-items-center">
+  <div class="col-lg-4 col-md-10 col-12 container-hotel m-1" *ngFor="let hotel of hotels">
+   <div class="d-flex flex-row">
+    <div class="d-flex flex-column">
+      <h5 class="hotel-title">{{hotel.hotelName}}</h5>
+      <img class="" src="assets/upload/{{hotel?.images[0]?.imgUrl}}" height="240px" width="100%" alt="Card image cap"/>
+      <div style="overflow-x:scroll" class="w-100 d-flex flex-row overflow-y">
+        <div><img src="assets/upload/{{hotel?.images[0]?.imgUrl}}" height="60px" width="60px" alt=""></div>
+        <div><img src="assets/upload/{{hotel?.images[0]?.imgUrl}}" height="60px" width="60px" alt=""></div>
+        <div><img src="assets/upload/{{hotel?.images[0]?.imgUrl}}" height="60px" width="60px" alt=""></div>
+        <div><img src="assets/upload/{{hotel?.images[0]?.imgUrl}}" height="60px" width="60px" alt=""></div>
+        <div><img src="assets/upload/{{hotel?.images[0]?.imgUrl}}" height="60px" width="60px" alt=""></div>
+
+      </div>
+    </div>
+    <div class="d-flex flex-column">
+      <a routerLink="/admin/hotel/{{hotel?._id}}">Check More</a>
+    </div>
+   </div>
+
+   
+  </div>
+
+</section>
